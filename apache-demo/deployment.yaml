@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apache-demo
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apache-demo
+  template:
+    metadata:
+      labels:
+        app: apache-demo
+    spec:
+      containers:
+      - name: apache-demo
+        image: nginx
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apache-demo
+  namespace: default
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30280
+      name: http
+  selector:
+    app: apache-demo
