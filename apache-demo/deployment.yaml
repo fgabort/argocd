@@ -17,7 +17,7 @@ spec:
       - name: apache-demo
         image: nginx
         ports:
-        - containerPort: 8080
+        - containerPort: 80
           protocol: TCP
       restartPolicy: Always
 
@@ -30,8 +30,8 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: 8080
-      targetPort: 8080
+    - port: 80
+      targetPort: 80
       nodePort: 30280
       name: http
   selector:
